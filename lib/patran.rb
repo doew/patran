@@ -1,4 +1,6 @@
 require "patran/version"
+require 'patran/yamato'
+require 'patran/jppost'
 
 module Patran
   class Error < StandardError; end
@@ -10,6 +12,7 @@ module Patran
       @number = number
       @courier = courier
       @courier_class = Patran.CourierClass @courier
+      @courier_class
     end
 
     def official_tracking_uri
@@ -21,6 +24,8 @@ module Patran
     case courier
     when 'yamato'
       Patran::Yamato
+    when 'jppost'
+      Patran::Jppost
     else
       raise Patran::Error.new('Not implemented courier.')
     end
